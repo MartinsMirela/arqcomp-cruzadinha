@@ -25,7 +25,25 @@
 </div>
 
 <script>
+// Cada palavra: número, resposta, linha e coluna onde começa, direção (H ou V) e pista
+var palavras = [
+  { numero: 1,  resposta: "FLASH",          linha: 0, coluna: 10, direcao: "H", pista: "Memória não volátil apagada em blocos, usada em pendrives e cartões SD." },
+  { numero: 3,  resposta: "CPU",            linha: 1, coluna: 2,  direcao: "H", pista: "Chip que executa as instruções dos programas e coordena o funcionamento do computador." },
+  { numero: 5,  resposta: "UC",             linha: 3, coluna: 1,  direcao: "H", pista: "Componente do processador que busca, decodifica e comanda a execução das instruções." },
+  { numero: 7,  resposta: "EEPROM",         linha: 3, coluna: 9,  direcao: "H", pista: "Memória não volátil que pode ser apagada e regravada eletricamente, byte a byte." },
+  { numero: 8,  resposta: "MEMORIADEMASSA", linha: 5, coluna: 1,  direcao: "H", pista: "Dispositivo de grande capacidade, como HD ou SSD, que guarda arquivos de forma permanente." },
+  { numero: 10, resposta: "RAM",            linha: 7, coluna: 3,  direcao: "H", pista: "Memória volátil principal onde ficam os programas em uso; apaga ao desligar." },
+  { numero: 11, resposta: "REGISTRADORES",  linha: 9, coluna: 0,  direcao: "H", pista: "Pequenas posições de armazenamento dentro do processador, as mais rápidas de todas." },
 
+  { numero: 2,  resposta: "ADDRESSBUS",     linha: 0, coluna: 12, direcao: "V", pista: "Conjunto de linhas pelas quais o processador indica qual posição da memória acessar." },
+  { numero: 3,  resposta: "CACHE",          linha: 1, coluna: 2,  direcao: "V", pista: "Memória pequena e muito rápida que guarda cópias de dados usados com frequência." },
+  { numero: 4,  resposta: "ULA",            linha: 1, coluna: 4,  direcao: "V", pista: "Parte do processador que realiza somas, subtrações e comparações lógicas." },
+  { numero: 6,  resposta: "DMA",            linha: 3, coluna: 7,  direcao: "V", pista: "Controlador que transfere dados entre periféricos e memória sem ocupar o processador." },
+  { numero: 9,  resposta: "ROM",            linha: 5, coluna: 5,  direcao: "V", pista: "Memória não volátil gravada de fábrica, cujo conteúdo normalmente não é alterado." }
+];
+
+var LINHAS = 10;
+var COLUNAS = 15;
 </script>
 
 </body>
