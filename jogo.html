@@ -13,7 +13,7 @@
 
 <div class="botoes">
   <button onclick="conferir()">Conferir</button>
-  <button>Reiniciar</button>
+  <button onclick="reiniciar()">Reiniciar</button>
   <span id="contador">0 de 12 palavras</span>
 </div>
 
@@ -155,6 +155,29 @@ function conferir() {
   }
 
   document.getElementById("contador").innerHTML = acertos + " de " + palavras.length + " palavras";
+}
+
+// 5) Botão Reiniciar
+function reiniciar() {
+  // limpa as letras e as cores das casas
+  for (var i = 0; i < LINHAS; i++) {
+    for (var j = 0; j < COLUNAS; j++) {
+      if (grade[i][j] != "") {
+        var campo = document.getElementById("c" + i + "_" + j);
+        campo.value = "";
+        campo.className = "";
+      }
+    }
+  }
+
+  // limpa as cores e os avisos das pistas
+  for (var n = 0; n < palavras.length; n++) {
+    document.getElementById("pista" + n).className = "";
+    document.getElementById("status" + n).innerHTML = "";
+  }
+
+  // zera o contador
+  document.getElementById("contador").innerHTML = "0 de " + palavras.length + " palavras";
 }
 </script>
 
