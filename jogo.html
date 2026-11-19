@@ -44,6 +44,53 @@ var palavras = [
 
 var LINHAS = 10;
 var COLUNAS = 15;
+
+// Devolve a linha e a coluna da letra k da palavra p
+function posicao(p, k) {
+  if (p.direcao == "H") {
+    return { linha: p.linha, coluna: p.coluna + k };
+  } else {
+    return { linha: p.linha + k, coluna: p.coluna };
+  }
+}
+
+// 1) Monta a grade com as letras certas (matriz)
+var grade = [];
+for (var i = 0; i < LINHAS; i++) {
+  grade[i] = [];
+  for (var j = 0; j < COLUNAS; j++) {
+    grade[i][j] = "";
+  }
+}
+for (var n = 0; n < palavras.length; n++) {
+  for (var k = 0; k < palavras[n].resposta.length; k++) {
+    var pos = posicao(palavras[n], k);
+    grade[pos.linha][pos.coluna] = palavras[n].resposta[k];
+  }
+}
+
+// 2) Desenha o tabuleiro
+var html = "";
+for (var i = 0; i < LINHAS; i++) {
+  html += "<tr>";
+  for (var j = 0; j < COLUNAS; j++) {
+    if (grade[i][j] == "") {
+      html += "<td class='vazio'></td>";
+    } else {
+      // descobre se alguma palavra começa nesta casa para mostrar o número
+      var numero = "";
+      for (var n = 0; n < palavras.length; n++) {
+        if (palavras[n].linha == i && palavras[n].coluna == j) {
+          numero = palavras[n].numero;
+        }
+      }
+      html += "<td><span class='num'>" + numero + "</span>";
+      html += "<input maxlength='1' id='c" + i + "_" + j + "'></td>";
+    }
+  }
+  html += "</tr>";
+}
+document.getElementById("tabuleiro").innerHTML = html;
 </script>
 
 </body>
