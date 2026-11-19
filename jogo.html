@@ -12,7 +12,7 @@
 <table id="tabuleiro"></table>
 
 <div class="botoes">
-  <button>Conferir</button>
+  <button onclick="conferir()">Conferir</button>
   <button>Reiniciar</button>
   <span id="contador">0 de 12 palavras</span>
 </div>
@@ -91,6 +91,71 @@ for (var i = 0; i < LINHAS; i++) {
   html += "</tr>";
 }
 document.getElementById("tabuleiro").innerHTML = html;
+
+// 3) Escreve as pistas
+var textoH = "";
+var textoV = "";
+for (var n = 0; n < palavras.length; n++) {
+  var p = palavras[n];
+  var linhaPista = "<li id='pista" + n + "'>" + p.numero + ". " + p.pista +
+                   " (" + p.resposta.length + " letras) <b id='status" + n + "'></b></li>";
+  if (p.direcao == "H") {
+    textoH += linhaPista;
+  } else {
+    textoV += linhaPista;
+  }
+}
+document.getElementById("horizontais").innerHTML = textoH;
+document.getElementById("verticais").innerHTML = textoV;
+
+// 4) Botão Conferir
+function conferir() {
+  var acertos = 0;
+
+  // limpa as cores anteriores
+  for (var i = 0; i < LINHAS; i++) {
+    for (var j = 0; j < COLUNAS; j++) {
+      if (grade[i][j] != "") {
+        document.getElementById("c" + i + "_" + j).className = "";
+      }
+    }
+  }
+
+  for (var n = 0; n < palavras.length; n++) {
+    var p = palavras[n];
+
+    // junta as letras digitadas nessa palavra
+    var digitado = "";
+    for (var k = 0; k < p.resposta.length; k++) {
+      var pos = posicao(p, k);
+      var campo = document.getElementById("c" + pos.linha + "_" + pos.coluna);
+      digitado += campo.value.toUpperCase();
+    }
+
+    var certa = (digitado == p.resposta);
+    if (certa) {
+      acertos++;
+      document.getElementById("pista" + n).className = "certa";
+      document.getElementById("status" + n).innerHTML = "✔ certa";
+    } else {
+      document.getElementById("pista" + n).className = "errada";
+      document.getElementById("status" + n).innerHTML = "✘ errada";
+    }
+
+    // pinta as casas da palavra (verde nunca é trocado por vermelho)
+    for (var k = 0; k < p.resposta.length; k++) {
+      var pos = posicao(p, k);
+      var campo = document.getElementById("c" + pos.linha + "_" + pos.coluna);
+      if (certa) {
+        campo.className = "certa";
+      } else if (campo.className != "certa") {
+        campo.className = "errada";
+      }
+    }
+  }
+
+  document.getElementById("contador").innerHTML = acertos + " de " + palavras.length + " palavras";
+}
 </script>
 
 </body>
